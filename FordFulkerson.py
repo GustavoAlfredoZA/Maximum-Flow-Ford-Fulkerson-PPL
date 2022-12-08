@@ -1,13 +1,14 @@
 from collections import defaultdict
+import numpy as np
+import time
+start_time = time.time()
 
-class Grafo_M_Flow:
+class Graph:
 
     def __init__(self, graph):
         self.graph = graph
         self. ROW = len(graph)
-
-
-    # Using BFS as a searching algorithm 
+    # Using BFS as a searching algorithm
     def searching_algo_BFS(self, s, t, parent):
 
         visited = [False] * (self.ROW)
@@ -40,7 +41,6 @@ class Grafo_M_Flow:
             while(s != source):
                 path_flow = min(path_flow, self.graph[parent[s]][s])
                 s = parent[s]
-
             # Adding the path flows
             max_flow += path_flow
 
@@ -55,16 +55,15 @@ class Grafo_M_Flow:
         return max_flow
 
 
-graph = [[0, 8, 0, 0, 3, 0],
-         [0, 0, 9, 0, 0, 0],
-         [0, 0, 0, 0, 7, 2],
-         [0, 0, 0, 0, 0, 5],
-         [0, 0, 7, 4, 0, 0],
-         [0, 0, 0, 0, 0, 0]]
+graph = np.array([[0,11,9,0],
+    [0,0,1,3],
+    [0,16,0,19],
+    [0,0,0,0]])
 
 g = Graph(graph)
 
 source = 0
-sink = 5
+sink = 3
 
 print("Max Flow: %d " % g.ford_fulkerson(source, sink))
+print(time.time() - start_time)
